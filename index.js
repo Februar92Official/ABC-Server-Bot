@@ -84,11 +84,15 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, async (c) => {
   console.log(`Eingeloggt als ${c.user.tag}`);
-  // Slash-Commands global registrieren (kann bis zu ~1 Std. dauern, meist sofort)
-  await c.application.commands.set([
-    { name: 'ping', description: 'Testet die Antwortgeschwindigkeit vom Bot...' },
-    { name: 'friedenszeit', description: 'Zeigt, ob die Friedenszeit gerade aktiv ist.' },
-  ]);
+  try {
+    const registered = await c.application.commands.set([
+      { name: 'ping', description: 'Testet die Antwortgeschwindigkeit vom Bot...' },
+      { name: 'friedenszeit', description: 'Zeigt, ob die Friedenszeit gerade aktiv ist.' },
+    ]);
+    console.log('Commands registriert:', registered.map((cmd) => cmd.name).join(', '));
+  } catch (err) {
+    console.error('Command-Registrierung fehlgeschlagen:', err);
+  }
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
