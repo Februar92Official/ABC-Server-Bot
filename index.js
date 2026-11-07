@@ -25,8 +25,7 @@ client.once(Events.ClientReady, async (c) => {
   console.log(`Eingeloggt als ${c.user.tag}`);
   // Slash-Command global registrieren (kann bis zu ~1 Std. dauern, meist sofort)
   await c.application.commands.set([
-    { name: 'ping', description: 'Test the reply speed of the bot.' },
-    { name: 'products', description: 'Show all products.' },
+    { name: 'ping', description: 'Testet die Antwortgeschwindigkeit vom Bot...' },
   ]);
 });
 
